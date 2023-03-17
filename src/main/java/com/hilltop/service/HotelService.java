@@ -132,6 +132,12 @@ public class HotelService {
         }
     }
 
+    /**
+     * This method used to get hotels by city.
+     *
+     * @param city city
+     * @return List of HotelResponseDto
+     */
     public List<HotelResponseDto> getHotelsByCity(String city) {
         try {
             List<Hotel> allByCity = hotelRepository.findAllByCity(city);

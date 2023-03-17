@@ -3,9 +3,9 @@ spring:
     name: hotel-service
 
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/hotel_service?createDatabaseIfNotExist=true}
-    username: root
-    password:
+    url: ${DB_URL:jdbc:mysql://3.84.238.131:3306/hotel_service?createDatabaseIfNotExist=true}
+    username: admin
+    password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

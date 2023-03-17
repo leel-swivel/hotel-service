@@ -167,6 +167,12 @@ public class HotelController extends Controller {
         }
     }
 
+    /**
+     * This endpoint used to get hotelsByCity.
+     *
+     * @param city city
+     * @return hotelListResponseDto
+     */
     @GetMapping("city/{city}")
     public ResponseEntity<ResponseWrapper> getHotelsByCity(@PathVariable String city) {
         try {
