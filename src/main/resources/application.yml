@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: hotel-service
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/hotel_service?createDatabaseIfNotExist=true}
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8083
+#  servlet:
+#    context-path: /hotel-servic
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    com.hilltop: ${LOG_LEVEL:DEBUG}
+  file:
+    path: ${LOGPATH:/home/ubuntu/logs/hotel-service}
