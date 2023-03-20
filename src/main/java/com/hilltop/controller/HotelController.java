@@ -33,7 +33,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/hotel")
 @Slf4j
-@CrossOrigin
 public class HotelController extends Controller {
     private final HotelService hotelService;
 
