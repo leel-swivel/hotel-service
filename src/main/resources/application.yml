@@ -1,11 +1,14 @@
 spring:
   application:
     name: hotel-service
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
 
   datasource:
-    url: ${DB_URL:jdbc:mysql://3.84.238.131:3306/hotel_service?createDatabaseIfNotExist=true}
-    username: admin
-    password: admin
+    url: ${DB_URL:jdbc:mysql://34.224.6.43:3306/hotel_service?createDatabaseIfNotExist=true}
+    username: user
+    password: user
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -19,10 +22,10 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://54.210.130.67:8761/eureka
 
 logging:
   level:
     com.hilltop: ${LOG_LEVEL:DEBUG}
   file:
-    path: ${LOGPATH:/home/ubuntu/logs/hotel-service}
+    path: ${LOGPATH:/home/ubuntu/logs}
