@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HotelCreateRequestTestDto {
@@ -30,7 +31,7 @@ class HotelCreateRequestTestDto {
     void Should_ReturnTrue_When_ToStringMethodReturnsValue(){
         var sampleHotelCreateRequest = getSampleHotelCreateRequest();
         String sampleHotelCreateRequestToString = getSampleHotelCreateRequestToString();
-        assertTrue(sampleHotelCreateRequest.toLogJson().equals(sampleHotelCreateRequestToString));
+        assertEquals(sampleHotelCreateRequest.toLogJson(), sampleHotelCreateRequestToString);
     }
 
 
