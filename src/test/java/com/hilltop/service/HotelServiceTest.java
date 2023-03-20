@@ -141,7 +141,7 @@ class HotelServiceTest {
         when(hotelRepository.findAllByCity(any())).thenThrow(new DataAccessException("ERROR") {
         });
         HotelServiceException hotelServiceException = assertThrows(HotelServiceException.class, () ->
-                hotelService.getHotelsByCity(any()));
+                hotelService.getHotelsByCity("Kalutara"));
         assertEquals("Getting hotels by city from database was failed.", hotelServiceException.getMessage());
     }
 
