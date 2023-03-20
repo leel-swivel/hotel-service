@@ -10,7 +10,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 
 @Configuration
 @EnableSwagger2
@@ -33,7 +33,7 @@ public class SwaggerConfig {
     private ApiInfo generateAPIInfo() {
 
         return new ApiInfo("Hotel Service", "Implementing Swagger with SpringBoot Application", "1.0.0",
-                "", getContacts(), "", "", new LinkedHashSet<>());
+                "", getContacts(), "", "", new ArrayList<>());
     }
 
     // Developer Contacts
