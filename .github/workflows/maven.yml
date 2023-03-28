@@ -32,6 +32,7 @@ jobs:
       - name: Run Tests
         run: mvn -B test
   scan:
+    needs: tests
     name: Sonar Analysis
     runs-on: ubuntu-latest
     steps:
