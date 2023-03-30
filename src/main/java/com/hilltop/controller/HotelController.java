@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +49,7 @@ public class HotelController extends Controller {
      * @return hotelSaveResponseDto
      */
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ResponseWrapper> saveHotel(@RequestBody HotelCreateRequestDto hotelCreateRequest) {
         try {
             if (!hotelCreateRequest.isRequiredAvailable()) {
@@ -55,7 +57,7 @@ public class HotelController extends Controller {
                 return getErrorResponse(ErrorResponseStatusType.MISSING_REQUIRED_FIELDS);
             }
             var hotelSaveResponseDto = hotelService.saveHotel(hotelCreateRequest);
-            return getSuccessResponse(hotelSaveResponseDto, SuccessResponseStatusType.CREATE_HOTEL);
+            return getSuccessResponse(hotelSaveResponseDto, SuccessResponseStatusType.CREATE_HOTEL, HttpStatus.CREATED);
         } catch (HotelServiceException e) {
             log.error("Saving hotel was failed.", e);
             return getInternalServerError();
@@ -73,7 +75,7 @@ public class HotelController extends Controller {
         try {
             var hotel = hotelService.getHotelById(id);
             var hotelResponseDto = new HotelResponseDto(hotel);
-            return getSuccessResponse(hotelResponseDto, SuccessResponseStatusType.READ_HOTEL);
+            return getSuccessResponse(hotelResponseDto, SuccessResponseStatusType.READ_HOTEL, HttpStatus.OK);
         } catch (InvalidHotelException e) {
             log.error("Invalid hotel id to get hotel details.");
             return getErrorResponse(ErrorResponseStatusType.INVALID_HOTEL_ID);
@@ -88,14 +90,14 @@ public class HotelController extends Controller {
      *
      * @return hotelListResponseDto
      */
-    @GetMapping("/{page}/{size}")
+    @GetMapping("/page/{page}/size/{size}")
     public ResponseEntity<ResponseWrapper> getHotelList(@Min(DEFAULT_PAGE) @PathVariable int page,
                                                         @Positive @Max(PAGE_MAX_SIZE) @PathVariable int size) {
         try {
             Pageable pageable = PageRequest.of(page, size, Sort.by(DEFAULT_SORT).descending());
             Page<Hotel> allHotelPage = hotelService.getAllHotel(pageable);
             var hotelListPageResponseDto = new HotelListPageResponseDto(allHotelPage);
-            return getSuccessResponse(hotelListPageResponseDto, SuccessResponseStatusType.READ_HOTEL_LIST);
+            return getSuccessResponse(hotelListPageResponseDto, SuccessResponseStatusType.READ_HOTEL_LIST,HttpStatus.OK);
         } catch (HotelServiceException e) {
             log.error("Returning hotel list was failed.", e);
             return getInternalServerError();
@@ -119,7 +121,7 @@ public class HotelController extends Controller {
             }
             var hotel = hotelService.updateHotel(id, hotelCreateRequest);
             var hotelResponseDto = new HotelResponseDto(hotel);
-            return getSuccessResponse(hotelResponseDto, SuccessResponseStatusType.UPDATE_HOTEL);
+            return getSuccessResponse(hotelResponseDto, SuccessResponseStatusType.UPDATE_HOTEL,HttpStatus.OK);
         } catch (InvalidHotelException e) {
             log.error("Invalid hotel id to update hotel details.");
             return getErrorResponse(ErrorResponseStatusType.INVALID_HOTEL_ID);
@@ -139,7 +141,7 @@ public class HotelController extends Controller {
     public ResponseEntity<ResponseWrapper> deleteHotel(@PathVariable String id) {
         try {
             hotelService.deleteHotel(id);
-            return getSuccessResponse(null, SuccessResponseStatusType.DELETE_HOTEL);
+            return getSuccessResponse(null, SuccessResponseStatusType.DELETE_HOTEL,HttpStatus.OK);
         } catch (InvalidHotelException e) {
             log.error("Invalid hotel id to update hotel details.");
             return getErrorResponse(ErrorResponseStatusType.INVALID_HOTEL_ID);
@@ -159,7 +161,7 @@ public class HotelController extends Controller {
         try {
             List<String> allCities = hotelService.getAllCities();
             var cityListResponseDto = new CityListResponseDto(allCities);
-            return getSuccessResponse(cityListResponseDto, SuccessResponseStatusType.READ_HOTEL_CITIES);
+            return getSuccessResponse(cityListResponseDto, SuccessResponseStatusType.READ_HOTEL_CITIES,HttpStatus.OK);
         } catch (HotelServiceException e) {
             log.error("Getting hotel cities was failed.", e);
             return getInternalServerError();
@@ -177,7 +179,7 @@ public class HotelController extends Controller {
         try {
             var hotelsByCity = hotelService.getHotelsByCity(city);
             var hotelListResponseDto = new HotelListResponseDto(hotelsByCity);
-            return getSuccessResponse(hotelListResponseDto, SuccessResponseStatusType.READ_HOTELS_BY_CITY);
+            return getSuccessResponse(hotelListResponseDto, SuccessResponseStatusType.READ_HOTELS_BY_CITY, HttpStatus.OK);
         } catch (HotelServiceException e) {
             log.error("Getting hotel cities was failed.", e);
             return getInternalServerError();

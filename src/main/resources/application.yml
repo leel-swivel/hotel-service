@@ -6,9 +6,9 @@ spring:
       matching-strategy: ant_path_matcher
 
   datasource:
-    url: ${DB_URL:jdbc:mysql://100.25.149.53:3306/hotel_service?createDatabaseIfNotExist=true}
-    username: user
-    password: user
+    url: ${DB_URL:jdbc:mysql://localhost:3306/hotel_service?createDatabaseIfNotExist=true}
+    username: root
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -28,4 +28,4 @@ logging:
   level:
     com.hilltop: ${LOG_LEVEL:DEBUG}
   file:
-    path: ${LOGPATH:/home/ubuntu/logs}
+    path: ${LOGPATH:/home/leel/Desktop/logs}

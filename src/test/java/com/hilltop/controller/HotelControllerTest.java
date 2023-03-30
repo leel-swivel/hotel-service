@@ -34,7 +34,7 @@ class HotelControllerTest {
     private static final String GET_HOTEL_BY_CITY_URL = "/api/v1/hotel/city/{city}";
     private static final String UPDATE_HOTEL_URL = "/api/v1/hotel/{id}";
     private static final String GET_HOTEL_BY_ID_URL = "/api/v1/hotel/{id}";
-    private static final String GET_HOTEL_LIST = "/api/v1/hotel/{page}/{size}";
+    private static final String GET_HOTEL_LIST = "/api/v1/hotel/page/{page}/size/{size}";
     private static final String HOTEL_ID = "hid-1235-1458-1785";
     private static final String SUCCESS_STATUS = "SUCCESS";
     private static final String CITY = "Kalutara";
@@ -64,7 +64,7 @@ class HotelControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post(CREATE_HOTEL_URL)
                         .content(hotelCreateRequestDto.toLogJson())
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 
     @Test
