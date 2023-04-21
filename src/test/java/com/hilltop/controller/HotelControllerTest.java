@@ -34,7 +34,7 @@ class HotelControllerTest {
     private static final String GET_HOTEL_BY_CITY_URL = "/api/v1/hotel/city/{city}";
     private static final String UPDATE_HOTEL_URL = "/api/v1/hotel/{id}";
     private static final String GET_HOTEL_BY_ID_URL = "/api/v1/hotel/{id}";
-    private static final String GET_HOTEL_LIST = "/api/v1/hotel/page/{page}/size/{size}";
+    private static final String GET_HOTEL_LIST = "/api/v1/hotel?page=0&size=10";
     private static final String HOTEL_ID = "hid-1235-1458-1785";
     private static final String SUCCESS_STATUS = "SUCCESS";
     private static final String CITY = "Kalutara";
@@ -140,11 +140,9 @@ class HotelControllerTest {
 
     @Test
     void Should_ReturnOk_When_ValidPageAndSizeProvidedForGetAllHotelList() throws Exception {
-        String url = GET_HOTEL_LIST.replace("{page}",
-                String.valueOf(PAGE_NO)).replace("{size}", String.valueOf(SIZE));
         Page<Hotel> hotelPage = getHotelPage();
         when(hotelService.getAllHotel(any())).thenReturn(hotelPage);
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
+        mockMvc.perform(MockMvcRequestBuilders.get(GET_HOTEL_LIST))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status").value(SUCCESS_STATUS));
@@ -152,10 +150,8 @@ class HotelControllerTest {
 
     @Test
     void Should_ReturnInternalServerError_When_GetAllHotelIsFailed() throws Exception {
-        String url = GET_HOTEL_LIST.replace("{page}",
-                String.valueOf(PAGE_NO)).replace("{size}", String.valueOf(SIZE));
         doThrow(new HotelServiceException("ERROR")).when(hotelService).getAllHotel(any());
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
+        mockMvc.perform(MockMvcRequestBuilders.get(GET_HOTEL_LIST))
                 .andExpect(status().isInternalServerError());
     }
 
