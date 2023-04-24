@@ -175,7 +175,7 @@ public class HotelController extends Controller {
      * @return hotelListResponseDto
      */
     @GetMapping("city/{city}")
-    public ResponseEntity<ResponseWrapper> getHotelsByCity(@PathVariable String city) {
+    public ResponseEntity<ResponseWrapper> getHotelsByCity(@RequestParam String city) {
         try {
             var hotelsByCity = hotelService.getHotelsByCity(city);
             var hotelListResponseDto = new HotelListResponseDto(hotelsByCity);
